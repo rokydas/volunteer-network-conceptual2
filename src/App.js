@@ -1,23 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import AddEvent from "./components/AddEvent/AddEvent";
+import AllEvents from "./components/AllEvents/AllEvents";
+import Home from "./components/Home/Home";
+import Login from "./components/Login/Login";
+import MyEvents from "./components/MyEvents/MyEvents";
+import Navbar from "./components/Navbar/Navbar";
+import NotFound from "./components/NotFound/NotFound";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Registration from "./components/Registration/Registration";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route path="/home">
+            <Home />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <PrivateRoute path="/registration/:id">
+            <Registration />
+          </PrivateRoute>
+          <PrivateRoute path="/myEvents">
+            <MyEvents />
+          </PrivateRoute>
+          <PrivateRoute path="/allEvents">
+            <AllEvents />
+          </PrivateRoute>
+          <PrivateRoute path="/addEvent">
+            <AddEvent />
+          </PrivateRoute>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
